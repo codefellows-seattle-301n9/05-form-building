@@ -47,21 +47,24 @@
            4. Author's URL
            5. Article category
            6. Some way to know if this article is a draft or is published -->
-      <form action="">
+      <form id="newPost">
         <label for="">
-          <input id="title" type="text">
+          <input id="title" placeholder="Title" type="text">
         </label>
         <label for="">
-          <textarea id="body"></textarea>
+          <textarea placeholder="Body" id="body"></textarea>
         </label>
         <label for="">
-          <input id="author" type="text">
+          <input id="author" placeholder="Author" type="text">
         </label>
         <label for="">
-          <input id="authorUrl" type="text">
+          <input id="authorUrl" placeholder="Author Website" type="text">
         </label>
         <label for="">
-          <input id="category" type="text">
+          <input id="category" placeholder="Category" type="text">
+        </label>
+        <label for="Published">
+          <input type="checkbox" name="" id="published">
         </label>
       </form>
     </section>

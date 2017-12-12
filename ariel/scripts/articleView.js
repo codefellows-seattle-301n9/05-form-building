@@ -89,6 +89,10 @@ articleView.initNewArticlePage = () => {
 
   // TODO: Add an event handler to update the preview and the export field if any inputs change.
 
+  $('#newPost').on('change', function() {
+
+  });
+
 };
 
 articleView.create = () => {
