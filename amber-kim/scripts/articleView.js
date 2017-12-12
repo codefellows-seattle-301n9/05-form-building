@@ -1,4 +1,5 @@
 'use strict';
+/* global articles */
 
 let articleView = {};
 
@@ -73,43 +74,77 @@ articleView.setTeasers = () => {
   });
 };
 
-// COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? Why?
+// This function is called in the new.html page to populate the contents in the page.
 articleView.initNewArticlePage = () => {
-  // TODO: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
+  // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
+  $('.tab-content').show();
 
-
-  // TODO: The new articles we create will be copy/pasted into our source data file.
+  // TODONE: The new articles we create will be copy/pasted into our source data file.
   // Set up this "export" functionality. We can hide it for now, and show it once we have data to export.
 
   $('#article-json').on('focus', function(){
     this.select();
   });
 
-  // TODO: Add an event handler to update the preview and the export field if any inputs change.
-
+  // TODONE: Add an event handler to update the preview and the export field if any inputs change.
+  $('#new-article-form').on('change', function() {
+    let articleTitle = $('#title').val();
+    let articleBody = $('#body').val();
+    let articleAuthor = $('#author').val();
+    let articleUrl = $('#url').val();
+    let articleCategory = $('#category').val();
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
+    if(dd < 10) {
+      dd = '0' + dd;
+    }
+    if(mm < 10) {
+      mm = '0' + mm;
+    } 
+    today = `${mm}-${dd}-${yyyy}`;
+    let articleDate = today;
+    let articleJSON = 
+    {
+      author : `${articleAuthor}`,
+      authorUrl : `${articleUrl}`,
+      title : `${articleTitle}`,
+      category : `${articleCategory}`,
+      body: `${articleBody}`,
+      publishedOn: `${articleDate}`,
+    }
+    rawData.push(articleJSON);
+    articleView.create();
+    articleView.handleMainNav();
+  });
 };
 
 articleView.create = () => {
-  // TODO: Set up a variable to hold the new article we are creating.
+  // TODONE: Set up a variable to hold the new article we are creating.
+  let newArticleData = rawData[(rawData.length-1)];
   // Clear out the #articles element, so we can put in the updated preview
+  $('#articles').empty();
 
+  // TODONE: Instantiate an article based on what's in the form fields:
+  let NewArticle = new Article(newArticleData);
+  let newArticleHtml = NewArticle.toHtml();
+  console.log('new article html' + newArticleHtml);
 
-  // TODO: Instantiate an article based on what's in the form fields:
-
-
-  // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-
-
-  // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  $('pre code').each();
-
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-
+  // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
+  $('#articles').append(newArticleHtml);
+  
+  // TODONE: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+  // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  $('#source-code code').text(JSON.stringify(newArticleData, null, '\t'));
 };
 
-// COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? Why?
+// it is called in the index page to create the new page elements
 articleView.initIndexPage = () => {
   articles.forEach(article => $('#articles').append(article.toHtml()));
   articleView.populateFilters();
