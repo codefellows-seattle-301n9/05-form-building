@@ -40,8 +40,8 @@
         <div class="icon-menu"></div>
         <ul>
           <!-- NOTE (stretch goal): In the same way that we enabled tab navigation on index.html, we can do the same on this page utilizing these elements. -->
-          <li class="tab" data-content="write"><a href="#" class="icon-home"> Write</a></li>
-          <li class="tab" data-content="articles"><a href="#" class="icon-home"> Preview</a></li>
+          <li class="tab" data-content="write"><a href="#" class="icon-home">Write</a></li>
+          <li class="tab" data-content="articles"><a href="#" class="icon-home">Preview</a></li>
         </ul>
       </nav>
     </header>
@@ -67,12 +67,13 @@
           
           <label for=""><input type="text" name="" id="category" placeholder="Category"></label>
 
-          <label for=""><input type="checkbox">Published</label>
+          <label for=""><input type="checkbox" id="published">Published</label>
         </form>
       </section>
 
-      <section id="articles" class="tab-content">
+      <section id="article-preview" class="tab-content">
         <!-- NOTE: This is where we will display our article preview -->
+        <!-- NOTE(CHRIS) Should this id be different from article section element on index.html??-->
       </section>
 
       <section id="article-export">

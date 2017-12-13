@@ -84,34 +84,58 @@ articleView.initNewArticlePage = () => {
   // Set up this "export" functionality. We can hide it for now, and show it once we have data to export.
 
   $('#article-json').on('focus', function(){
-    this.select();
+    this.select(function() {
+      let exportData = JSON.stringify(this.val());
+      rawData.push(exportData);
+    });
 
   });
 
   // TODO: Add an event handler to update the preview and the export field if any inputs change.
   $('#new-article-form').on('change', 'input, textarea', function() {
-    
+    console.log('Change Detected!');
+  });
+
+  $('#article-export').on('change', 'textarea', function() {
+
   });
 };
 
 articleView.create = () => {
   // TODO: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-  $('#articles').empty();
-  let newArticle = {};
+  $('#article-preview').empty();
+
+  let newArticleObj = {
+    author: $('#author').val(),
+    authorUrl: $('#author-url').val(),
+    title: $('#title').val(),
+    category: $('#category').val(),
+    body: $('#body').val(),
+    publishedOn: $('#published:checked').val()
+  };
 
   // TODO: Instantiate an article based on what's in the form fields:
-  new Article(newArticle);
+  function Article(articleObj) {
+    this.author = articleObj.author;
+    this.authorUrl = articleObj.authorUrl;
+    this.title = articleObj.title;
+    this.category = articleObj.category;
+    this.body = articleObj.body;
+    this.publishedOn = articleObj.publishedOn;
+  }
+
+  let newArticle = new Article(newArticleObj);
 
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-  let template = $('#new-article-template').html();
-  let templateRender = Handlebars.compile(template);
+  let template = Handlebars.compile($('#new-article-template').html());
+  template(newArticle);
+  $('#article-preview').append(template(newArticle)).show();
 
   // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
   $('pre code').each();
 
   // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-  return templateRender(this);
 };
 
 // COMMENT: Where is this function called? Why?
@@ -123,4 +147,8 @@ articleView.initIndexPage = () => {
   articleView.handleAuthorFilter();
   articleView.handleMainNav();
   articleView.setTeasers();
-};
+}
+
+articleView.initNewArticlePage = () => {
+  articleView.handleMainNav();
+}
