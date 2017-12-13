@@ -61,10 +61,10 @@ articleView.setTeasers = () => {
   $('.article-body *:nth-of-type(n+2)').hide();
   $('article').on('click', 'a.read-on', function(event) {
     event.preventDefault();
-    if ($(this).text() === 'Read On &rarr;') {
+    if($(this).text() === 'Read On &rarr;') {
       $(this).parent().find('*').fadeIn();
       $(this).html('Show Less &larr;');
-    } 
+    }
     else {
       $('body').animate({
         scrollTop: ($(this).parent().offset().top)
@@ -78,8 +78,6 @@ articleView.setTeasers = () => {
 // COMMENTED: Where is this function called? Why?
 // This function is called in new.html in order to initialize the page.
 articleView.initNewArticlePage = () => {
-  articleView.handleMainNav();
-  articleView.setTeasers();
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
   $('.tab-content').show();
 
@@ -88,7 +86,7 @@ articleView.initNewArticlePage = () => {
 
   $('#article-json').on('focus', function(){
     this.select(function() {
-      let exportData = JSON.stringify(this.val());
+      let exportData = JSON.stringify();
       rawData.push(exportData);
     });
 
@@ -105,6 +103,7 @@ articleView.initNewArticlePage = () => {
   $('#article-export').on('change', 'textarea', function() {
 
   });
+  articleView.handleMainNav();
 };
 
 articleView.create = () => {
@@ -118,20 +117,22 @@ articleView.create = () => {
     title: $('#title').val(),
     category: $('#category').val(),
     body: $('#body').val(),
-    publishedOn: $('#published:checked').val()
+    publishedOn: $('#published').prop('checked')
   };
 
   // TODO: Instantiate an article based on what's in the form fields:
-  function Article(articleObj) {
+  function CreateArticle(articleObj) {
     this.author = articleObj.author;
     this.authorUrl = articleObj.authorUrl;
     this.title = articleObj.title;
     this.category = articleObj.category;
     this.body = articleObj.body;
     this.publishedOn = articleObj.publishedOn;
-  }
 
-  let newArticle = new Article(newArticleObj);
+    //this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+    this.publishStatus = this.publishedOn ? `${$('#published').val()}` : '(draft)';
+  }
+  let newArticle = new CreateArticle(newArticleObj);
 
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
   let template = Handlebars.compile($('#new-article-template').html());
