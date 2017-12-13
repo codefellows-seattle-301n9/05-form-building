@@ -59,16 +59,17 @@ articleView.handleMainNav = () => {
 
 articleView.setTeasers = () => {
   $('.article-body *:nth-of-type(n+2)').hide();
-  $('article').on('click', 'a.read-on', function(e) {
-    e.preventDefault();
-    if ($(this).text() === 'Read on →') {
+  $('article').on('click', 'a.read-on', function(event) {
+    event.preventDefault();
+    if ($(this).text() === 'Read On &rarr;') {
       $(this).parent().find('*').fadeIn();
       $(this).html('Show Less &larr;');
-    } else {
+    } 
+    else {
       $('body').animate({
         scrollTop: ($(this).parent().offset().top)
       },200);
-      $(this).html('Read on &rarr;');
+      $(this).html('Read On &rarr;');
       $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
     }
   });
@@ -78,6 +79,7 @@ articleView.setTeasers = () => {
 // This function is called in new.html in order to initialize the page.
 articleView.initNewArticlePage = () => {
   articleView.handleMainNav();
+  articleView.setTeasers();
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
   $('.tab-content').show();
 
