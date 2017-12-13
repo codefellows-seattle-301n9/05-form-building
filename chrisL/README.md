@@ -17,9 +17,10 @@
 
 12/11/17: 
 1. Initialize HTML pages with initialize functions
-2. Create
+2. Built form for user to create new article
 
-12/12/17 - 
+12/12/17:
+1. 
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->

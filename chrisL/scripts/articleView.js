@@ -77,6 +77,7 @@ articleView.setTeasers = () => {
 // COMMENTED: Where is this function called? Why?
 // This function is called in new.html in order to initialize the page.
 articleView.initNewArticlePage = () => {
+  articleView.handleMainNav();
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
   $('.tab-content').show();
 
@@ -94,6 +95,9 @@ articleView.initNewArticlePage = () => {
   // TODO: Add an event handler to update the preview and the export field if any inputs change.
   $('#new-article-form').on('change', 'input, textarea', function() {
     console.log('Change Detected!');
+    let newText = $(this).val();
+    console.log(newText);
+    articleView.create();
   });
 
   $('#article-export').on('change', 'textarea', function() {
@@ -147,8 +151,4 @@ articleView.initIndexPage = () => {
   articleView.handleAuthorFilter();
   articleView.handleMainNav();
   articleView.setTeasers();
-}
-
-articleView.initNewArticlePage = () => {
-  articleView.handleMainNav();
 }
