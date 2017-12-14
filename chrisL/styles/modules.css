@@ -55,8 +55,12 @@
 }
 
 #article-json {
+  width: 25%;
   font-weight: bold;
   color: Black;
+  text-decoration: none;
+  border: 1px solid gray;
+  float: right;
 }
 
 /* FORM */

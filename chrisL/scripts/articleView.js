@@ -94,7 +94,7 @@ articleView.initNewArticlePage = () => {
 
   });
 
-  // TODO: Add an event handler to update the preview and the export field if any inputs change.
+  // TODONE: Add an event handler to update the preview and the export field if any inputs change.
   $('#new-article-form').on('change', 'input, textarea', function() {
     console.log('Change Detected!');
     let newText = $(this).val();
@@ -102,9 +102,10 @@ articleView.initNewArticlePage = () => {
     articleView.create();
   });
 
-  $('#article-export').on('change', 'textarea', function() {
-
+  $('#article-json').on('change', 'input textarea', function() {
+    articleView.create();
   });
+  
   articleView.handleMainNav();
 };
 
@@ -120,6 +121,7 @@ articleView.create = () => {
     category: $('#category').val(),
     body: $('#body').val(),
     publishedOn: $('#published').val()
+    //publishedOn: $('#published:checked').length ? new Date() : null
   };
 
   // TODONE: Instantiate an article based on what's in the form fields:
@@ -143,8 +145,10 @@ articleView.create = () => {
     this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
     this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   }
+
   let newArticle = new CreateArticle(newArticleObj);
-  console.log(newArticle);
+  let newArticleJson = JSON.stringify(newArticle);
+  $('#article-json').val(newArticleJson);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
   let template = Handlebars.compile($('#new-article-template').html());
