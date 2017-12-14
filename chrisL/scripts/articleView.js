@@ -59,11 +59,20 @@ articleView.handleMainNav = () => {
 
 articleView.setTeasers = () => {
   $('.article-body *:nth-of-type(n+2)').hide();
-  $('article').on('click', 'a.read-on', function(event) {
+  $('article').on('click', 'a.read-on, a.read-less', function(event) {
     event.preventDefault();
-    if($(this).text() === 'Read On &rarr;') {
+    console.log('read on clicked!');
+    if($(this).hasClass('read-on')) {
       $(this).parent().find('*').fadeIn();
       $(this).html('Show Less &larr;');
+      $(this).addClass('read-less');
+      $(this).removeClass('read-on');
+    }
+    else if ($(this).hasClass('read-less')) {
+      $(this).addClass('read-on');
+      $(this).removeClass('read-less');
+      $('.article-body *:nth-of-type(n+2)').hide();
+      $(this).html('Read On &rarr;');
     }
     else {
       $('body').animate({
@@ -105,7 +114,7 @@ articleView.initNewArticlePage = () => {
   $('#article-json').on('change', 'input textarea', function() {
     articleView.create();
   });
-  
+
   articleView.handleMainNav();
 };
 
@@ -147,8 +156,6 @@ articleView.create = () => {
   }
 
   let newArticle = new CreateArticle(newArticleObj);
-  let newArticleJson = JSON.stringify(newArticle);
-  $('#article-json').val(newArticleJson);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
   let template = Handlebars.compile($('#new-article-template').html());
@@ -158,7 +165,12 @@ articleView.create = () => {
   // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
   $('pre code').each();
 
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  let newArticleJson = JSON.stringify(newArticle);
+  $('#article-json').val(newArticleJson);
+  //rawData[rawData.length - 1] = newArticleJson;
+
+  articleView.setTeasers();
 };
 
 // COMMENTED: Where is this function called? Why?
