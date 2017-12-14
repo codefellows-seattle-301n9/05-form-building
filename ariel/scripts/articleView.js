@@ -90,7 +90,8 @@ articleView.initNewArticlePage = () => {
 
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
 
-  $('#newPost').on('change', articleView.create());
+  $('#newPost').on('change', articleView.create);
+
 };
 
 articleView.create = () => {
@@ -99,11 +100,12 @@ articleView.create = () => {
 
   $('#articles').empty();
   let newPostData = {
-    author: $('#author').val,
-    authorUrl: $('#authorUrl').val,
-    title: $('#title').val,
-    category: $('#category').val,
-    body: $('#body').val
+    author: $('#author').val(),
+    authorUrl: $('#authorUrl').val(),
+    title: $('#title').val(),
+    category: $('#category').val(),
+    body: $('#body').val(),
+    publishedOn: $('#article-published:checked').length ? new Date() : null
   };
   // TODO: Instantiate an article based on what's in the form fields:
 
@@ -113,11 +115,11 @@ articleView.create = () => {
 
   $('#articles').append(newPost.toHtml());
 
-  // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  $('pre code').each();
+  // STRETCH TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  //$('pre code').each();
 
   // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-
+  //let json = JSON.stringify(newPost);
 };
 
 // COMMENT: Where is this function called? Why?
