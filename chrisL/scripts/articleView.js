@@ -81,14 +81,15 @@ articleView.initNewArticlePage = () => {
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
   $('.tab-content').show();
 
-  // TODO: The new articles we create will be copy/pasted into our source data file.
+  // TODONE: The new articles we create will be copy/pasted into our source data file.
   // Set up this "export" functionality. We can hide it for now, and show it once we have data to export.
 
   $('#article-json').on('focus', function() {
     console.log('in focus!');
     $(this).select(function() {
       console.log('something selected!');
-      console.log($(this).val());
+      let newText = $(this).val();
+      console.log(newText);
     });
 
   });
@@ -118,7 +119,7 @@ articleView.create = () => {
     title: $('#title').val(),
     category: $('#category').val(),
     body: $('#body').val(),
-    publishedOn: $('#published').prop('checked')
+    publishedOn: $('#published').val()
   };
 
   // TODONE: Instantiate an article based on what's in the form fields:
@@ -130,10 +131,20 @@ articleView.create = () => {
     this.body = articleObj.body;
     this.publishedOn = articleObj.publishedOn;
 
-    //this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
-    this.publishStatus = this.publishedOn ? `${$('#published').val()}` : '(draft)';
+    $('#published').on('click', function() {
+      if($('#published').prop('checked')) {
+        $(this).val('2017-12-14');
+      }
+      else {
+        $(this).val('');
+      }
+    });
+
+    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+    this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   }
   let newArticle = new CreateArticle(newArticleObj);
+  console.log(newArticle);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
   let template = Handlebars.compile($('#new-article-template').html());
