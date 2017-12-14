@@ -71,16 +71,19 @@ articleView.setTeasers = () => {
     else if ($(this).hasClass('read-less')) {
       $(this).addClass('read-on');
       $(this).removeClass('read-less');
-      $('.article-body *:nth-of-type(n+2)').hide();
-      $(this).html('Read On &rarr;');
-    }
-    else {
       $('body').animate({
         scrollTop: ($(this).parent().offset().top)
       },200);
+      $('.article-body *:nth-of-type(n+2)').hide();
       $(this).html('Read On &rarr;');
-      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
     }
+    // else {
+    //   $('body').animate({
+    //     scrollTop: ($(this).parent().offset().top)
+    //   },200);
+    //   $(this).html('Read On &rarr;');
+    //   $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+    // }
   });
 };
 
