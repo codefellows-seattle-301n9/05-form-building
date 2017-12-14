@@ -97,26 +97,34 @@ articleView.initNewArticlePage = () => {
 articleView.create = () => {
   // TODO: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-  let previewPost = [];
+  let newPost = {
+    author: $('#author').val,
+    authorUrl: $('#authorUrl').val,
+    title: $('#title').val,
+    category: $('#category').val,
+    body: $('#body').val
+  };
   $('#articles').empty();
 
   // TODO: Instantiate an article based on what's in the form fields:
 
-  function Preview (post) {
-    $('#author').val = post.author;
-    $('#authorUrl').val = post.authorUrl;
-    $('#title').val = post.title;
-    $('#category').val = post.category;
-    $('#body').val = post.body;
+  function Preview (previewPost) {
+    this.author = previewPost.author;
+    this.authorUrl = previewPost.authorUrl;
+    this.title = previewPost.title;
+    this.category = previewPost.category;
+    this.body = previewPost.body;
+    this.publishedOn = previewPost.publishedOn;
+  }
 
-    let current = new Preview();
+  let current = new Preview(newPost);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
 
   let template = Handlebars.compile($('#preview-template').text());
   return template(current);
 
-  $('#articles').append(Preview(post));
+  $('#articles').append(new Preview(newPost));
 
   // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
   $('pre code').each();
