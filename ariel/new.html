@@ -13,7 +13,7 @@
   <!-- NOTE (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
   <link>
   <!-- TODONE: We want our new article form to be able to display a preview of the article that is being entered. Thus, we need code here that will recreate the same structure of our other articles. What do you think we need to add here? -->
-  <script id="preview-template" type="text/x-handlebars-template">
+  <script id="article-template" type="text/x-handlebars-template">
     <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
       <header>
         <h1>{{title}}</h1>
@@ -98,10 +98,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <!-- NOTE (stretch goal): Include script tags for 3rd party libraries to enable Markdown rendering and code syntax highlighting. Use the minified CDN. Keep in mind that if we want these features to render properly on our main blog page (index.html) that we'll need to add those scripts over there, too. -->
-
   <script src="scripts/blogArticles.js"></script>
   <script src="scripts/article.js"></script>
-  <script src="scripts/articleView.js"></script>
+<script src="scripts/articleView.js"></script>
   <script>
     // TODONE: We will need to call a function here to initialize the behaviors on this page, once we get them built out. Why?
     // (Look at the bottom of index.html as a reference. Since we are now using our JS on two different HTML pages that have different needs as to what parts of the code they utilize, we need to build a function that inializes each page.)
