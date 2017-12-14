@@ -94,33 +94,7 @@ articleView.initNewArticlePage = () => {
     let articleAuthor = $('#author').val();
     let articleUrl = $('#url').val();
     let articleCategory = $('#category').val();
-    let articleDate = '(draft)';
-    if ($('#is-published').is(':checked')) {
-      console.log('checkbox is checked');
-      let today = new Date();
-      let dd = today.getDate();
-      let mm = today.getMonth() + 1;
-      let yyyy = today.getFullYear();
-      if(dd < 10) {
-        dd = '0' + dd;
-      }
-      if(mm < 10) {
-        mm = '0' + mm;
-      } 
-      articleDate = `${mm}-${dd}-${yyyy}`;
-    } else {
-      articleDate = '(draft)';
-    }
     let articleJSON = 
-    {
-      author : `${articleAuthor}`,
-      authorUrl : `${articleUrl}`,
-      title : `${articleTitle}`,
-      category : `${articleCategory}`,
-      body: `${articleBody}`,
-      publishedOn: `${articleDate}`,
-    }
-    rawData.push(articleJSON);
     articleView.create();
     articleView.handleMainNav();
   });
@@ -128,7 +102,27 @@ articleView.initNewArticlePage = () => {
 
 articleView.create = () => {
   // TODONE: Set up a variable to hold the new article we are creating.
-  let newArticleData = rawData[(rawData.length-1)];
+  let newArticleData = {
+    author : $('#author').val(),
+    authorUrl : $('#url').val(),
+    title : $('#title').val(),
+    category : $('#category').val(),
+    body: $('#articleBody').val(),
+    publishedOn: '(Draft)',
+  }
+  if ($('#is-published').is(':checked')) {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    newArticleData.publishedOn = `${mm}-${dd}-${yyyy}`;
+  }
 
   // Clear out the #articles element, so we can put in the updated preview
   $('#articles').empty();
