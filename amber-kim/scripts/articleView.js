@@ -90,22 +90,27 @@ articleView.initNewArticlePage = () => {
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
   $('#new-article-form').on('change', function() {
     let articleTitle = $('#title').val();
-    let articleBody = $('#body').val();
+    let articleBody = $('#articleBody').val();
     let articleAuthor = $('#author').val();
     let articleUrl = $('#url').val();
     let articleCategory = $('#category').val();
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
-    let yyyy = today.getFullYear();
-    if(dd < 10) {
-      dd = '0' + dd;
+    let articleDate = '(draft)';
+    if ($('#is-published').is(':checked')) {
+      console.log('checkbox is checked');
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      let yyyy = today.getFullYear();
+      if(dd < 10) {
+        dd = '0' + dd;
+      }
+      if(mm < 10) {
+        mm = '0' + mm;
+      } 
+      articleDate = `${mm}-${dd}-${yyyy}`;
+    } else {
+      articleDate = '(draft)';
     }
-    if(mm < 10) {
-      mm = '0' + mm;
-    } 
-    today = `${mm}-${dd}-${yyyy}`;
-    let articleDate = today;
     let articleJSON = 
     {
       author : `${articleAuthor}`,
@@ -124,15 +129,15 @@ articleView.initNewArticlePage = () => {
 articleView.create = () => {
   // TODONE: Set up a variable to hold the new article we are creating.
   let newArticleData = rawData[(rawData.length-1)];
+
   // Clear out the #articles element, so we can put in the updated preview
   $('#articles').empty();
 
   // TODONE: Instantiate an article based on what's in the form fields:
   let NewArticle = new Article(newArticleData);
-  let newArticleHtml = NewArticle.toHtml();
-  console.log('new article html' + newArticleHtml);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
+  let newArticleHtml = NewArticle.toHtml();
   $('#articles').append(newArticleHtml);
   
   // TODONE: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
