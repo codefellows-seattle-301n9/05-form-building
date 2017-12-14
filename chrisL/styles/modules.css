@@ -54,6 +54,11 @@
   color: #ccc;
 }
 
+#article-json {
+  font-weight: bold;
+  color: Black;
+}
+
 /* FORM */
 #new-article-form label, textarea {
   font-size: 1.1em;

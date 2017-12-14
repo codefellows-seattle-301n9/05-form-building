@@ -84,10 +84,11 @@ articleView.initNewArticlePage = () => {
   // TODO: The new articles we create will be copy/pasted into our source data file.
   // Set up this "export" functionality. We can hide it for now, and show it once we have data to export.
 
-  $('#article-json').on('focus', function(){
-    this.select(function() {
-      let exportData = JSON.stringify();
-      rawData.push(exportData);
+  $('#article-json').on('focus', function() {
+    console.log('in focus!');
+    $(this).select(function() {
+      console.log('something selected!');
+      console.log($(this).val());
     });
 
   });
@@ -107,7 +108,7 @@ articleView.initNewArticlePage = () => {
 };
 
 articleView.create = () => {
-  // TODO: Set up a variable to hold the new article we are creating.
+  // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
   $('#article-preview').empty();
 
@@ -120,7 +121,7 @@ articleView.create = () => {
     publishedOn: $('#published').prop('checked')
   };
 
-  // TODO: Instantiate an article based on what's in the form fields:
+  // TODONE: Instantiate an article based on what's in the form fields:
   function CreateArticle(articleObj) {
     this.author = articleObj.author;
     this.authorUrl = articleObj.authorUrl;
@@ -134,7 +135,7 @@ articleView.create = () => {
   }
   let newArticle = new CreateArticle(newArticleObj);
 
-  // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
+  // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
   let template = Handlebars.compile($('#new-article-template').html());
   template(newArticle);
   $('#article-preview').append(template(newArticle)).show();
@@ -145,8 +146,8 @@ articleView.create = () => {
   // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
 };
 
-// COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? Why?
+// To initialize the index.html page and run these functions for the page as well when it is called.
 articleView.initIndexPage = () => {
   articles.forEach(article => $('#articles').append(article.toHtml()));
   articleView.populateFilters();
