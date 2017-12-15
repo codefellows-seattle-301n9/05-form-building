@@ -14,6 +14,7 @@ This project utilizes HTML, CSS, JavaScript, Handlebars, Templating, ES6 Arrow F
 
 ## Change Log
 12-12-2017 3:00pm - Application and minimum requirements are now working.
+12-14-2017 6:00pm - Fixed issue with adding unwanted blogs to the rawData.
 
 ## Credits and Collaborations
 * icomoon icons | © 2017 Roonas. All Rights Reserved. | icomoon.io/#icons-icomoon
