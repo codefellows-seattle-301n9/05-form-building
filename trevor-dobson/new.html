@@ -12,6 +12,19 @@
     <!-- NOTE (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
     <link>
     <!-- TODO: We want our new article form to be able to display a preview of the article that is being entered. Thus, we need code here that will recreate the same structure of our other articles. What do you think we need to add here? -->
+    <script id="article-template" type="text/x-handlebars-template">
+      <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
+        <header>
+          <h1>{{title}}</h1>
+          <div class="byline">
+            By <address><a href="{{authorUrl}}">{{author}}</a></address>
+            {{publishStatus}}
+          </div>
+        </header>
+        <section class="article-body">{{{body}}}</section>
+        <a href="#" class="read-on">Read on &rarr;</a>
+      </article>
+    </script>
     </head>
   <body>
     <header class="site-header clearfix">
@@ -58,7 +71,8 @@
              <input id="category"type="text" placeholder="Category">
             </label>
             <label>
-              <input type="checkbox">
+              <input id="published" type="checkbox">
+              Published
             </label>
            </form>
       </section>
@@ -68,7 +82,13 @@
       </section>
 
       <section id="article-export">
-        <!-- TODO: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
+        <!-- TODONE: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
+        
+        <!-- needs work -->
+        <label id="export-field" for="article-json" class="pullright"></label>
+          <input type="text">
+          Copy and Paste
+        </label>
       </section>
 
     </main>

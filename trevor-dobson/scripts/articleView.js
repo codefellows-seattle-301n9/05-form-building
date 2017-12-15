@@ -78,6 +78,7 @@ articleView.setTeasers = () => {
 // PUT YOUR RESPONSE HERE
 articleView.initNewArticlePage = () => {
   // TODO: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
+
   $('.tab-content').show();
 
   // TODO: The new articles we create will be copy/pasted into our source data file.
@@ -85,31 +86,46 @@ articleView.initNewArticlePage = () => {
 
   $('#article-json').on('focus', function(){
     this.select();
+    /*if (this.select() = null) {
+      $('#article-json').hide();
+    } else {
+      
+    }*/
   });
 
-  // TODO: Add an event handler to update the preview and the export field if any inputs change.
-  $('#new-article-form').on('change', function() {
-
-  });
+  // TODONE: Add an event handler to update the preview and the export field if any inputs change.
+  $('#new-article-form').on('change', articleView.create); 
 
 };
 
 articleView.create = () => {
-  // TODO: Set up a variable to hold the new article we are creating.
+  // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
+  $('#articles').empty();
 
+  let newArticleData = {
+    title: $('#title').val(),
+    body: $('#body').val(),
+    author: $('#author').val(),
+    authorUrl: $('#author-url').val(),
+    category: $('#category').val(),
+    publishedOn: $('#published:checked').length ? new Date() : null
 
-  // TODO: Instantiate an article based on what's in the form fields:
+  };
 
+  // TODONE: Instantiate an article based on what's in the form fields:
+  let newArticle = new Article(newArticleData);
 
-  // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
+  // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
+  $('#articles').append(newArticle.toHtml());
 
-
-  // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  // TODO STRETCH: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
   $('pre code').each();
 
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  let json = JSON.stringify(newArticle);
 
+  $('#article-json').val(json);
 };
 
 // COMMENT: Where is this function called? Why?
