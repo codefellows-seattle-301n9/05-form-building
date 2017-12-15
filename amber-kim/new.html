@@ -20,7 +20,7 @@
           <h1>{{title}}</h1>
           <div class="byline">
             By <address><a href="{{authorUrl}}">{{author}}</a></address>
-            {{publishStatus}}
+            {{publishedOn}}
           </div>
         </header>
         <section class="article-body">{{{body}}}</section>
@@ -103,7 +103,7 @@
     <script src="scripts/articleView.js"></script>
     <!-- STRETCH GOAL CODE SYNTAX HIGHLIGHTING-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://greasyfork.org/scripts/34138-marked-js/code/markedjs.js?version=223779"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.7/marked.min.js"></script>
     <script>
       // TODONE: We will need to call a function here to initialize the behaviors on this page, once we get them built out. Why?
       // (Look at the bottom of index.html as a reference. Since we are now using our JS on two different HTML pages that have different needs as to what parts of the code they utilize, we need to build a function that inializes each page.)

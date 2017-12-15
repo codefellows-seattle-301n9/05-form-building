@@ -13,12 +13,11 @@ function Article (rawDataObj) {
 
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
-
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
 
   // STRETCH: Pass the article body into the marked.js library to format our Markdown input
-
+  console.log('finished template: ' + template(this));
   return template(this);
 };
 
