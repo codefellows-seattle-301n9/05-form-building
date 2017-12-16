@@ -74,7 +74,7 @@ articleView.setTeasers = () => {
 };
 
 // COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// End of the script tag in index.html. Because that is where the html is initializing the formE
 articleView.initNewArticlePage = () => {
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
 $('.tab-content').show();
@@ -87,32 +87,43 @@ $('.tab-content').show();
   });
 
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
-  $('#new-article-form').on('change', function() {
-     console.log('HELLO USER');
-  });
+  $('#new-article-form').on('change',articleView.create);
 
 };
 
 articleView.create = () => {
-  // TODO: Set up a variable to hold the new article we are creating.
+  // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
+  $('#articles').empty();
+  
+  let newArticleData = {
+    title: $('#title').val(),
+    body: $('#body').val(),
+    author: $('#author').val(),
+    authorUrl: $('#author-url').val(),
+    category: $('#category').val(),
+    publishedOn: $('#article-published:checked').length ? new Date() : null
+  };
 
+  // TODONE: Instantiate an article based on what's in the form fields:
+   let newArticle = new Article(newArticleData);
 
-  // TODO: Instantiate an article based on what's in the form fields:
+  // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
+  $('#articles').append(newArticle.toHtml());
 
-
-  // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-
-
-  // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  // TODONE: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
   $('pre code').each();
 
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
 
+  let json = JSON.stringify(newArticle);
+  
+  $('#article-json').val(json);
+  console.log(json);//keeping console log to show form is populating but the cut and paste into the blogArticles.js data file is not populating on index.html
 };
 
 // COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// End of the script tag in index.html. Because that is where the html is initializing the form
 articleView.initIndexPage = () => {
   articles.forEach(article => $('#articles').append(article.toHtml()));
   articleView.populateFilters();
