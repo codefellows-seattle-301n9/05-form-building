@@ -86,11 +86,7 @@ articleView.initNewArticlePage = () => {
 
   $('#article-json').on('focus', function(){
     this.select();
-    /*if (this.select() = null) {
-      $('#article-json').hide();
-    } else {
-      
-    }*/
+
   });
 
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
