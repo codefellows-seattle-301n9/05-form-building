@@ -71,7 +71,7 @@
                <input id="category" type="text" placeholder="Category">
               </label>
               <label>
-               <input type="checkbox">
+               <input id="article-published" type="checkbox">
                Published
              </label>
            </form>
@@ -80,9 +80,12 @@
       <section id="articles" class="tab-content">
         <!-- NOTE: This is where we will display our article preview -->
       </section>
-
+<!-- TODONE: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
       <section id="article-export">
-        <!-- TODO: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
+        <label id="export-field" for="article-json" class="pull-right">
+          <input type="text" readonly id="article-json">
+          Supposed to cut and paste this text into datafile to add - not working in Index.html
+        </label>
       </section>
 
     </main>
