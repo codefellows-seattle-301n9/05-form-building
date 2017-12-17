@@ -77,7 +77,7 @@ articleView.setTeasers = () => {
 // COMMENTED: Where is this function called? Why?
 // This function is called in the new.html file to initialize the new.html page.
 articleView.initNewArticlePage = () => {
-  // TODO: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
+  // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
 
   $('.tab-content').show();
 
@@ -116,11 +116,15 @@ articleView.create = () => {
   $('#articles').append(newPost.toHtml());
 
   // STRETCH TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  //$('pre code').each();
+  // $('pre code').each(function(i, block) {
+  //   hljs.highlightBlock(block);
+  // });
 
   // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-  //let json = JSON.stringify(newPost);
+  let json = JSON.stringify(newPost);
+  $('#article-json').val(json);
 };
+
 
 // COMMENT: Where is this function called? Why?
 // This function is called on in the index.html file to initialize the index.html page.
