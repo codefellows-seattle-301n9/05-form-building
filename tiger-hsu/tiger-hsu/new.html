@@ -11,25 +11,40 @@
     <link rel="stylesheet" href="styles/modules.css">
     <!-- NOTE (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
     <link>
-    <!-- TODO: We want our new article form to be able to display a preview of the article that is being entered. Thus, we need code here that will recreate the same structure of our other articles. What do you think we need to add here? -->
-    </head>
-  <body>
-    <header class="site-header clearfix">
-      <section class="heading-group-h1 pull-left">
-        <h1>
-          Kilovolt Blog!
-        </h1>
-        <h2>The shocking power of static pages</h2>
-      </section>
-      <nav class="main-nav">
-        <div class="icon-menu"></div>
-        <ul>
-          <!-- NOTE (stretch goal): In the same way that we enabled tab navigation on index.html, we can do the same on this page utilizing these elements. -->
-          <li class="tab" data-content="write"><a href="#" class="icon-home"> Write</a></li>
-          <li class="tab" data-content="articles"><a href="#" class="icon-home"> Preview</a></li>
-        </ul>
-      </nav>
+    <header>
+      <h1>{{title}}</h1>
+      <div class="byline">
+        By <address><a href="{{authorUrl}}">{{author}}</a></address>
+        {{publishStatus}}
+      </div>
     </header>
+    <section class="article-body">{{{body}}}</section>
+    <a href="#" class="read-on">Read on &rarr;</a>
+  </article>
+</script>
+
+</head>
+<body>
+  <header class="site-header clearfix">
+    <section class="heading-group-h1 pull-left">
+      <h1>
+        Kilovolt Blog!
+      </h1>
+      <h2>The shocking power of static pages</h2>
+    </section>
+    <nav class="main-nav">
+      <div class="icon-menu"></div>
+      <ul>
+        <!-- NOTE (stretch goal): In the same way that we enabled tab navigation on index.html, we can do the same on this page utilizing these elements. -->
+        <li class="tab" data-content="write"><a href="#" class="icon-home"> Write</a></li>
+        <li class="tab" data-content="articles"><a href="#" class="icon-home"> Preview</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+</head>
+    <!-- TODO: We want our new article form to be able to display a preview of the article that is being entered. Thus, we need code here that will recreate the same structure of our other articles. What do you think we need to add here? -->
+   
     <main class="clearfix">
 
       <section id="write" class="tab-content">
@@ -43,42 +58,36 @@
            4. Author's URL
            5. Article category
            6. Some way to know if this article is a draft or is published -->
-           <form id = "new-article-form" >
-              <label> 
-                <input id = "title" type="text" placeholder="title">
-              </label>
-             
-              <label>
-                <input id  = "body" type="textarea" placeholder="body">
-                <textarea name="" id="" cols="10" rows="5"></textarea>
-              </label>
-              
-              <label> 
-                <input id = "author" type="text" placeholder="author">
-              </label>
-             
-              <label>
-                <input id = "author-URL" type="text" placeholder="author-URL">
-              </label>
-              
-              <label>
-                <input id = "category" type="text" placeholder="category">
-              </label>
-              
-              <label> 
-                  <input id = "published" type="checkbox" placeholder= "published"> published
-              </label>
-             
+           <form id="new-article-form">
+            <label>
+              <input id="title" type="text" placeholder="Title">
             </label>
-
-           </form>
-      </section>
+            <label>
+              <textarea id="body" placeholder="Body"></textarea>
+            </label>
+            <label>
+              <input id="author" type="text" placeholder="Author">
+            </label>
+            <label>
+              <input id="author-url" type="text" placeholder="Author URL">
+            </label>
+            <label>
+              <input id="category" type="text"  placeholder="Category">
+            </label>
+            <label>
+              <input type="checkbox">
+              Published
+            </label>
+          </form>
+    </section>
 
       <section id="articles" class="tab-content">
         <!-- NOTE: This is where we will display our article preview -->
       </section>
 
       <section id="article-export">
+
+
         <!-- TODO: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
       </section>
 
@@ -99,8 +108,8 @@
       //  Hint: Look in articleView.js for a function that does this.
       // COMMENT: What is this function doing? Why do we need it?
       // initialize the new article page
-
       articleView.initNewArticlePage();
+$('#article-export').text()
      
     </script>
   </body>
