@@ -11,18 +11,19 @@
     <link rel="stylesheet" href="styles/modules.css">
     <!-- NOTE (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
     <link>
-    <header>
-      <h1>{{title}}</h1>
-      <div class="byline">
-        By <address><a href="{{authorUrl}}">{{author}}</a></address>
-        {{publishStatus}}
-      </div>
-    </header>
-    <section class="article-body">{{{body}}}</section>
-    <a href="#" class="read-on">Read on &rarr;</a>
-  </article>
-</script>
-
+    <script id="article-template" type="text/x-handlebars-template">
+      <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
+        <header>
+          <h1>{{title}}</h1>
+          <div class="byline">
+            By <address><a href="{{authorUrl}}">{{author}}</a></address>
+            {{publishStatus}}
+          </div>
+        </header>
+        <section class="article-body">{{{body}}}</section>
+        <a href="#" class="read-on">Read on &rarr;</a>
+      </article>
+    </script>
 </head>
 <body>
   <header class="site-header clearfix">
@@ -108,7 +109,7 @@
       //  Hint: Look in articleView.js for a function that does this.
       // COMMENT: What is this function doing? Why do we need it?
       // initialize the new article page
-      articleView.initNewArticlePage();
+      // articleView.initNewArticlePage();
 $('#article-export').text()
      
     </script>

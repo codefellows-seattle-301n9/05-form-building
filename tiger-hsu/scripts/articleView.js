@@ -1,7 +1,7 @@
 'use strict';
+/* global articles */
 
 let articleView = {};
-let articleObj = {};
 
 articleView.populateFilters = () => {
   $('article').each(function() {
@@ -78,7 +78,6 @@ articleView.setTeasers = () => {
 // PUT YOUR RESPONSE HERE
 articleView.initNewArticlePage = () => {
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
-
   $('.tab-content').show();
 
 
@@ -89,51 +88,54 @@ articleView.initNewArticlePage = () => {
     this.select();
   });
 
-articleView.create = () => {
-  let article
-  $('#articles').empty();
-}
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
+  $('#new-article-form').on('change', articleView.create);
 
-  $('#new-article-form').on('change', articleView.create); {
+};
 
-  };
-  
-articleView.create = () => { }
-  // TODO: Set up a variable to hold the new article we are creating.
-  // .create
-  // var .initNewArticlePage
+articleView.create = () => {
+  // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-let newArticleData = {
-  title:$('#title').val(),
-  body: $('#body').val(),
-  author:$('#author').val(),
-  authorUrl: $('#author-url').val(),
-  category: $('category').val(),
-
-}; 
-
-  // TODO: Instantiate an article based on what's in the form fields:
-let newArticle = new Article(newArticleData);
-
-
-  // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-  $('#articles').append(newArticle.toHtml());
+  $('#articles').empty();
   
+  let newArticleData = {
+    title: $('#title').val(),
+    body: $('#body').val(),
+    author: $('#author').val(),
+    authorUrl: $('#author-url').val(),
+    category: $('#category').val()
+    // publishedOn: $('#article-published:checked').length ? new Date ():null
+  }; 
 
-  // TODO Stretch: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  $('pre code').each();
+  // TODONE: Instantiate an article based on what's in the form fields:
+  let newArticle = new Article(newArticleData);
 
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-let json = JSON.stringify(newArticle)
+  // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
+  $('#articles').append(newArticle.toHtml());
+
+  // TODO: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  $('pre code').each(function(i, block){
+    hljs.highlightBlock(block);
+  });
+
+  // TODO STRETCH: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  $('#export-field').show();
+  // $('#article-json').val(JSON.stringify(article) + ',' );
+
+  let json = JSON.stringify(newArticle);
+  console.log(json);
+
+  $('#article-json').val(json)
+
+};
 
 // COMMENT: Where is this function called? Why?
 // PUT YOUR RESPONSE HERE
-// articleView.initIndexPage = () => {
-//   articles.forEach(article => $('#articles').append(article.toHtml()));
-//   articleView.populateFilters();
-//   articleView.handleCategoryFilter();
-//   articleView.handleAuthorFilter();
-//   articleView.handleMainNav();
-//   articleView.setTeasers();
-// };
+articleView.initIndexPage = () => {
+  articles.forEach(article => $('#articles').append(article.toHtml()));
+  articleView.populateFilters();
+  articleView.handleCategoryFilter();
+  articleView.handleAuthorFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
+};
