@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/modules.css">
-    <!-- NOTE (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
+    <!-- NOTED (stretch goal): To fully incorporate the highlighting library "hljs" we need to fill the empty link tag below to refer to a CSS file that will handle our text highlighting -->
+    <link rel="stylesheet" href="styles/highlighting.css">    
     <!-- TODONE: We want our new article form to be able to display a preview of the article that is being entered. Thus, we need code here that will recreate the same structure of our other articles. What do you think we need to add here? -->
-    <script id="article-template" type="text/x-handlebars-template">
+    <script id="new-article-template" type="text/x-handlebars-template">
       <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
         <header>
           <h1>{{title}}</h1>
           <div class="byline">
             By <address><a href="{{authorUrl}}">{{author}}</a></address>
-            {{publishedOn}}
+            {{publishStatus}}
           </div>
         </header>
         <section class="article-body">{{{body}}}</section>
@@ -53,20 +54,22 @@
            4. Author's URL
            5. Article category
            6. Some way to know if this article is a draft or is published -->
-      <form id="new-article-form">
+        <form id="new-article-form">
           <label><input id="title" type="text" placeholder="Title"></label>
-          <label><textarea id="body" type="textarea" placeholder="Body"></textarea>
           <label><input id="author" type="text" placeholder="Author"></label>
           <label><input id="author-url" type="text" placeholder="Author URL"></label>
           <label><input id="category" type="text" placeholder="Category"></label>
-          <label><input id="is-published" type="checkbox">Published</label>
-      </form>
+          <label><textarea id="body" type="text-area" placeholder="Body"></textarea></label>
+          <label><input id="published" type="checkbox">Published</label>
+        </form>
       </section>
 
-      <section id="articles" class="tab-content">
-          <label id="export-field" for="article-json">
-              <textarea id="addText" readonly></textarea>
-          </label>      
+      <section id="article-preview" class="tab-content">
+      </section>
+      <section id="article-export">
+          <pre id="article-source" class="hljs">
+            <code class="html"></code>
+          </pre>
       </section>
 
         <!-- TODONE: Refer to the preview image to see what we will be building here: we need a container of some kind to hold a JSON export of our article. Ideally this container would show only a incipit (short preview) of the JSON and also be clickable to allow easy selection of the text it holds. What kind of element could we use for this? -->
@@ -77,7 +80,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-    <!-- NOTE (stretch goal): Include script tags for 3rd party libraries to enable Markdown rendering and code syntax highlighting. Use the minified CDN. Keep in mind that if we want these features to render properly on our main blog page (index.html) that we'll need to add those scripts over there, too. -->
+    <!-- NOTED (stretch goal): Include script tags for 3rd party libraries to enable Markdown rendering and code syntax highlighting. Use the minified CDN. Keep in mind that if we want these features to render properly on our main blog page (index.html) that we'll need to add those scripts over there, too. -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
     <script src="scripts/blogArticles.js"></script>
     <script src="scripts/article.js"></script>
     <script src="scripts/articleView.js"></script>
