@@ -52,7 +52,6 @@ articleView.handleMainNav = () => {
     $('.tab-content').hide();
     $(`#${$(this).data('content')}`).fadeIn();
   });
-
   $('.main-nav .tab:first').click();
 };
 
@@ -60,10 +59,15 @@ articleView.setTeasers = () => {
   $('.article-body *:nth-of-type(n+2)').hide();
   $('article').on('click', 'a.read-on', function(e) {
     e.preventDefault();
-    if ($(this).text() === 'Read on →') {
+    if ($(this).hasClass('read-on')) {
       $(this).parent().find('*').fadeIn();
       $(this).html('Show Less &larr;');
-    } else {
+      $(this).addClass('read-less');
+      $(this).removeClass('read-on');
+    } 
+    else if ($(this).hasClass('read-less')) {
+      $(this).addClass('read-on');
+      $(this).removeClass('read-less');
       $('body').animate({
         scrollTop: ($(this).parent().offset().top)
       },200);
@@ -83,74 +87,82 @@ articleView.initNewArticlePage = () => { //initialize 'wire everything up', dom 
   // Set up this "export" functionality. We can hide it for now, and show it once we have data to export.
 
   $('#article-json').on('focus', function(){
-    this.select();
+    this.select(function() {
+      let exportArticle = $(this).val();
+    });
   });
 
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
   $('#new-article-form').on('change', 'input, textarea', function() {
-    let articleTitle = $('#title').val();
-    let articleBody = $('#body').val();
-    let articleAuthor = $('#author').val();
-    let articleUrl = $('#url').val();
-    let articleCategory = $('#category').val();
-    let articleJson = articleView.create;
-   }
-    //listen for changes on the form (expects event type string and delegated selection) and do something (trigger the function = when a change happens run function: articleView.create) with the changes = pass through a callback function.
-  $('article-json').on('change', 'input, textarea', function() {
-    articleView.create);
+    let exportArticle = $(this).val();
+    articleView.create();
+  });
+  //listen for changes on the form (expects event type string and delegated selection) and do something (trigger the function = when a change happens run function: articleView.create) with the changes = pass through a callback function.
+
+  $('#article-json').on('change', 'input textarea', function() {
+    articleView.create();
+  });
+
   articleView.handleMainNav();
 };
 
 articleView.create = () => {
   // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-
-  $('articles').empty(); //need to remove content of articles first
-
+  $('#article-preview').empty(); //need to remove content of articles first
   let newArticleObj = {
     title: $('#title').val(),
     category: $('#category').val(),
     author: $('#author').val(), 
     authorUrl: $('#author-url').val(),
     body: $('#body').val(),       
-    publishedOn: $('#is-published:checked').length ? new Date() : null //ask the element, returns an array. Article is getting keys and values that match what it expects
+    publishedOn: $('#published').val()
+    //publishedOn: $('#published:checked').length ? new Date() : null //ask the element, returns an array. Article is getting keys and values that match what it expects
   };
 
   // TODONE: Instantiate an article based on what's in the form fields:
-  function createArticleObj (ArticleObj) {
+  function Article(articleObj) {
     this.author = articleObj.author;
     this.authorUrl = articleObj.authorUrl;
     this.title = articleObj.title;
     this.category = articleObj.category;
     this.body = articleObj.body;
     this.publishedOn = articleObj.publishedOn;
-  }
-  
-  Article.prototype.toHtml = function() {
-    let template = Handlebars.compile($('#article-template').text());
+
+    $('#published').on('click', function() {
+      if($('#published').prop('checked')) {
+        $(this).val('2017-01-08');
+      }
+      else {
+        $(this).val('');
+      }
+    });
   
     this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
     this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
-  
-  let newArticle = new createArticle(newArticleObj);
+  }
+
+  let newArticle = new Article(newArticleObj);
 
   // TODONE: Use our interface to the Handblebars template to put this new article into the DOM:
-  let template = Handlebars.compile($('new-article-template').html());
+  let template = Handlebars.compile($('#new-article-template').html());
   template(newArticle);
-  $('#articles').append(newArticle.toHtml()); //finding some element in articles and appending articles toHtml creates and puts in the DOM
+  $('#article-preview').append(template(newArticle)).show();
 
-  // TODO STRETCH: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  $('pre code').each();
+  // TODONE STRETCH: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 
   // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
   let json = JSON.stringify(newArticle); //want to see new article in JSON form
-
   $('#article-json').val(json);
+
 };
 
 // COMMENTED: Where is this function called? Why?
 // The function is called in index.html to create new elements for the pages.
-articleView.initIndexPage = () => { //initialize page 'kicks off all work'
+articleView.initIndexPage = () => {
   articles.forEach(article => $('#articles').append(article.toHtml()));
   articleView.populateFilters();
   articleView.handleCategoryFilter();
